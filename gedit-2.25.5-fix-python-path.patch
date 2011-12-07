@@ -1,0 +1,23 @@
+diff -up gedit-2.25.5/plugin-loaders/python/gedit-plugin-loader-python.c.fix-python-path gedit-2.25.5/plugin-loaders/python/gedit-plugin-loader-python.c
+--- gedit-2.25.5/plugin-loaders/python/gedit-plugin-loader-python.c.fix-python-path	2009-01-12 11:23:48.000000000 -0500
++++ gedit-2.25.5/plugin-loaders/python/gedit-plugin-loader-python.c	2009-01-26 15:35:30.672713673 -0500
+@@ -488,7 +488,7 @@ gedit_python_init (GeditPluginLoaderPyth
+ 	PyObject *gettext, *install, *gettext_args;
+ 	struct sigaction old_sigint;
+ 	gint res;
+-	char *argv[] = { "gedit", NULL };
++	char *argv[] = { GEDIT_PLUGINS_LIBS_DIR, NULL };
+ 
+ 	if (loader->priv->init_failed)
+ 	{
+diff -up gedit-2.25.5/plugin-loaders/python/Makefile.am.fix-python-path gedit-2.25.5/plugin-loaders/python/Makefile.am
+--- gedit-2.25.5/plugin-loaders/python/Makefile.am.fix-python-path	2009-01-26 15:51:12.102965135 -0500
++++ gedit-2.25.5/plugin-loaders/python/Makefile.am	2009-01-26 15:35:49.978712718 -0500
+@@ -13,6 +13,7 @@ INCLUDES = \
+ 	$(DISABLE_DEPRECATED_CFLAGS)					\
+ 	$(PYGTK_CFLAGS)							\
+ 	$(PYTHON_CFLAGS)						\
++	-DGEDIT_PLUGINS_LIBS_DIR=\"$(GEDIT_PLUGINS_LIBS_DIR)\"		\
+ 	-DGEDIT_LOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
+ 
+ loader_LTLIBRARIES = libpythonloader.la
